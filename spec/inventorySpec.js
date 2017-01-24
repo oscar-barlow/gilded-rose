@@ -25,13 +25,4 @@ describe("Inventory", function() {
 
   });
 
-  describe("#createItem", function() {
-
-    it("should be able to create new items", function() {
-      var item = inventory.createItem("An Item", 1, 1);
-      expect(item.name).toBe("An Item");
-    });
-
-  });
-
 });
