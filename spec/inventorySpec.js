@@ -7,8 +7,12 @@ describe("Inventory", function() {
     inventory = new Inventory();
   });
 
-  it("should have an empty items array on initialization", function() {
-    expect(inventory.items()).toEqual([]);
+  describe("#initialize", function(){
+
+    it("should have an empty items array on initialization", function() {
+      expect(inventory.items()).toEqual([]);
+    });
+
   });
 
 });
