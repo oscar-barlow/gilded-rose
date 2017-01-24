@@ -15,4 +15,14 @@ describe("Inventory", function() {
 
   });
 
+  describe("#add", function() {
+
+    it("should be able to add items", function() {
+      var item;
+      inventory.add(item);
+      expect(inventory.items()).toContain(item);
+    });
+
+  });
+
 });
