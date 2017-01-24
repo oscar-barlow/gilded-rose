@@ -9,3 +9,7 @@ Inventory.prototype.items = function() {
 Inventory.prototype.add = function(item) {
   this._items.push(item);
 };
+
+Inventory.prototype.createItem = function(name, sell_in, quality) {
+  return new Item(name, sell_in, quality);
+};
