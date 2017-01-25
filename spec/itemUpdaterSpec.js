@@ -5,8 +5,8 @@ describe("ItemUpdater", function() {
   var legendaryItem;
 
   beforeEach(function() {
-    freshItem = jasmine.createSpyObj('freshItem', ['decreaseSellIn', 'decreaseQuality', 'isPastSellIn']);
-    staleItem = jasmine.createSpyObj('staleItem', ['decreaseSellIn', 'decreaseQuality', 'isPastSellIn']);
+    freshItem = jasmine.createSpyObj('freshItem', ['decreaseSellIn', 'decreaseQuality', 'isPastSellIn', 'isLegendary']);
+    staleItem = jasmine.createSpyObj('staleItem', ['decreaseSellIn', 'decreaseQuality', 'isPastSellIn', 'isLegendary']);
     legendaryItem = jasmine.createSpyObj('legendaryItem', ['decreaseSellIn', 'decreaseQuality', 'isPastSellIn', 'isLegendary']);
     updater = new ItemUpdater([freshItem, staleItem, legendaryItem]);
   });

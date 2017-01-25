@@ -20,8 +20,12 @@ ItemUpdater.prototype.setItems = function(array) {
 ItemUpdater.prototype.updateSellIn = function() {
   var updatedItems = []
   this.items().forEach(function(element) {
-    element.decreaseSellIn(1);
-    updatedItems.push(element);
+    if (element.isLegendary()) {
+      updatedItems.push(element);
+    } else {
+      element.decreaseSellIn(1);
+      updatedItems.push(element);
+    };
   });
   return updatedItems;
 };
