@@ -1,3 +1,5 @@
+"use strict";
+
 // Contains items, of all types
 function Inventory() {
   this._items = [];
