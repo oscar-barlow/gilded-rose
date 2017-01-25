@@ -2,11 +2,13 @@ describe("ItemUpdater", function() {
   var updater;
   var freshItem;
   var staleItem;
+  var legendaryItem;
 
   beforeEach(function() {
     freshItem = jasmine.createSpyObj('freshItem', ['decreaseSellIn', 'decreaseQuality', 'isPastSellIn']);
     staleItem = jasmine.createSpyObj('staleItem', ['decreaseSellIn', 'decreaseQuality', 'isPastSellIn']);
-    updater = new ItemUpdater([freshItem, staleItem]);
+    legendaryItem = jasmine.createSpyObj('legendaryItem', ['decreaseSellIn', 'decreaseQuality', 'isPastSellIn', 'isLegendary']);
+    updater = new ItemUpdater([freshItem, staleItem, legendaryItem]);
   });
 
   describe("#initialize", function() {
@@ -29,9 +31,15 @@ describe("ItemUpdater", function() {
 
   describe("#updateSellIn", function() {
 
-    it("should tell all items to decrease sell_in by one", function() {
+    it("should tell all non-legendary items to decrease sell_in by one", function() {
       updater.updateSellIn();
       expect(freshItem.decreaseSellIn).toHaveBeenCalledWith(1);
+    });
+
+    it("should not decrease sell_in for legendary items", function() {
+      legendaryItem.isLegendary.and.returnValue(true);
+      updater.updateSellIn();
+      expect(legendaryItem.decreaseSellIn).not.toHaveBeenCalled();
     });
 
   });
