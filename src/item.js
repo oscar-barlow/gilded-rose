@@ -27,3 +27,7 @@ Item.prototype.decreaseQuality = function(number) {
 Item.prototype.decreaseSellIn = function(number) {
   this.sell_in -= number
 };
+
+Item.prototype.isPastSellIn = function() {
+  return this.sell_in < 0;
+};

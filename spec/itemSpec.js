@@ -42,7 +42,13 @@ describe("Item", function() {
 
   });
 
+  describe("#isPastSellIn", function() {
+
+    it("should return true if sell_in is less than zero", function() {
+      item.decreaseSellIn(8);
+      expect(item.isPastSellIn()).toBeTruthy();
+    });
+
+  });
 
 });
-
-// functions for setting and getting name, quality, sell_in
