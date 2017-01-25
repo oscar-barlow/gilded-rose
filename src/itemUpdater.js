@@ -9,6 +9,6 @@ ItemUpdater.prototype.items = function() {
 
 ItemUpdater.prototype.updateSellIn = function() {
   this._items.forEach(function(element) {
-    element.decreaseSellIn(1);
+    element.decreaseQuality(1);
   });
 };

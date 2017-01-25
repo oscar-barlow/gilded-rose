@@ -1,12 +1,33 @@
 describe("ItemUpdater", function() {
   var updater;
-  var freshItem, staleItem = null;
+  var freshItem;
+  var staleItem;
+
+  function FreshItemSpy() {
+    this.isPastSellIn = false;
+    this.decreaseQualityArgs = 0;
+  };
+
+  FreshItemSpy.prototype = {
+    decreaseQuality: function(number) {
+      this.decreaseQualityArgs = number
+    }
+  };
+
+  function StaleItemSpy() {
+    this.isPastSellIn = true;
+    this.decreaseQualityArgs = 0;
+  }
+
+  StaleItemSpy.prototype = {
+    decreaseQuality: function(number) {
+      this.decreaseQualityArgs = number
+    }
+  };
 
   beforeEach(function() {
-    freshItem = {
-      decreaseSellIn: function() {};
-    }
-    updater = new ItemUpdater([freshItem, staleItem]);
+    freshItem = new FreshItemSpy();
+    updater = new ItemUpdater([freshItem]);
   });
 
   describe("#initialize", function() {
@@ -20,9 +41,8 @@ describe("ItemUpdater", function() {
   describe("#updateSellIn", function() {
 
     it("should tell all items to decrease sell_in by one", function() {
-      spyOn(freshItem, 'decreaseSellIn');
       updater.updateSellIn();
-      expect(freshItem.decreaseSellIn).toHaveBeenCalledWith(1);
+      expect(freshItem.decreaseQualityArgs).toEqual(1);
     });
 
   });
