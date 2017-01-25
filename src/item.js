@@ -1,3 +1,5 @@
+"use strict";
+
 // The Item class and its properties must not be changed unless you want to be
 // one-shotted by the goblin in the corner
 //
