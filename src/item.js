@@ -26,6 +26,10 @@ Item.prototype.decreaseQuality = function(number) {
   };
 };
 
+Item.prototype.setQuality = function(number) {
+  this.quality = number;
+};
+
 Item.prototype.decreaseSellIn = function(number) {
   this.sell_in -= number
 };

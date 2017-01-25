@@ -20,6 +20,15 @@ describe("Item", function() {
 
   });
 
+  describe("#setQuality", function() {
+
+    it("should set the quality of an item", function() {
+      item.setQuality(0);
+      expect(item.quality).toEqual(0);
+    });
+
+  });
+
   describe("#descreaseQuality", function() {
 
     it("should decrease the item's quality", function() {
