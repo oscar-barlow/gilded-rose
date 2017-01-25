@@ -33,12 +33,16 @@ ItemUpdater.prototype.updateSellIn = function() {
 ItemUpdater.prototype.updateQuality = function() {
   var updatedItems = []
   this.items().forEach(function(element) {
-    if (element.isPastSellIn()) {
-      element.decreaseQuality(2);
+    if (element.isLegendary()) {
       updatedItems.push(element);
     } else {
-      element.decreaseQuality(1)
-      updatedItems.push(element);
+      if (element.isPastSellIn()) {
+        element.decreaseQuality(2);
+        updatedItems.push(element);
+      } else {
+        element.decreaseQuality(1)
+        updatedItems.push(element);
+      };
     };
   });
   return updatedItems;

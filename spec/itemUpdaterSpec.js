@@ -5,9 +5,19 @@ describe("ItemUpdater", function() {
   var legendaryItem;
 
   beforeEach(function() {
-    freshItem = jasmine.createSpyObj('freshItem', ['decreaseSellIn', 'decreaseQuality', 'isPastSellIn', 'isLegendary']);
-    staleItem = jasmine.createSpyObj('staleItem', ['decreaseSellIn', 'decreaseQuality', 'isPastSellIn', 'isLegendary']);
-    legendaryItem = jasmine.createSpyObj('legendaryItem', ['decreaseSellIn', 'decreaseQuality', 'isPastSellIn', 'isLegendary']);
+    freshItem = jasmine.createSpyObj('freshItem', ['name','decreaseSellIn', 'decreaseQuality', 'isPastSellIn', 'isLegendary']);
+    staleItem = jasmine.createSpyObj('staleItem', ['name','decreaseSellIn', 'decreaseQuality', 'isPastSellIn', 'isLegendary']);
+    legendaryItem = jasmine.createSpyObj('legendaryItem', ['name','decreaseSellIn', 'decreaseQuality', 'isPastSellIn', 'isLegendary']);
+
+    legendaryItem.name.and.returnValue("A Legendary item");
+    legendaryItem.isLegendary.and.returnValue(true);
+
+    freshItem.name.and.returnValue("A Fresh item");
+    freshItem.isLegendary.and.returnValue(false);
+
+    staleItem.name.and.returnValue("A Stale item");
+    staleItem.isLegendary.and.returnValue(false);
+
     updater = new ItemUpdater([freshItem, staleItem, legendaryItem]);
   });
 
@@ -37,7 +47,6 @@ describe("ItemUpdater", function() {
     });
 
     it("should not decrease sell_in for legendary items", function() {
-      legendaryItem.isLegendary.and.returnValue(true);
       updater.updateSellIn();
       expect(legendaryItem.decreaseSellIn).not.toHaveBeenCalled();
     });
@@ -45,7 +54,6 @@ describe("ItemUpdater", function() {
   });
 
   describe("#updateQuality", function() {
-
 
     it("should tell fresh items to decrease quality by one", function() {
       updater.updateQuality();
@@ -57,6 +65,11 @@ describe("ItemUpdater", function() {
       staleItem.isPastSellIn.and.returnValue(true);
       updater.updateQuality();
       expect(staleItem.decreaseQuality).toHaveBeenCalledWith(2);
+    });
+
+    it("should not decrease quality of legendary items", function() {
+      updater.updateQuality();
+      expect(legendaryItem.decreaseQuality).not.toHaveBeenCalled();
     });
 
   });
