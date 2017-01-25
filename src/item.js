@@ -9,11 +9,19 @@ function Item(name, sell_in, quality) {
 };
 
 Item.prototype.increaseQuality = function(number) {
-  this.quality += number;
+  if (this.quality + number > 50) {
+    this.quality = 50;
+  } else {
+    this.quality += number;
+  };
 };
 
 Item.prototype.decreaseQuality = function(number) {
-  this.quality -= number;
+  if (this.quality - number < 0) {
+    this.quality = 0;
+  } else {
+    this.quality -= number;
+  };
 };
 
 Item.prototype.decreaseSellIn = function(number) {

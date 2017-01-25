@@ -12,6 +12,11 @@ describe("Item", function() {
       expect(item.quality).toEqual(10);
     });
 
+    it("should not increase quality above 50", function() {
+      item.increaseQuality(44);
+      expect(item.quality).toEqual(50);
+    });
+
   });
 
   describe("#descreaseQuality", function() {
@@ -19,6 +24,11 @@ describe("Item", function() {
     it("should decrease the item's quality", function() {
       item.decreaseQuality(2);
       expect(item.quality).toEqual(5);
+    });
+
+    it("should not decrease quality below zero", function() {
+      item.decreaseQuality(8);
+      expect(item.quality).toEqual(0);
     });
 
   });
@@ -31,6 +41,7 @@ describe("Item", function() {
     });
 
   });
+
 
 });
 
