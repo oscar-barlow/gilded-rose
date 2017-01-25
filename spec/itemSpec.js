@@ -88,4 +88,12 @@ describe("Item", function() {
 
   });
 
+  describe("#isOrdinary", function() {
+
+    it("should know when an item is just a plain, ordinary item", function() {
+      expect(item.isOrdinary()).toBeTruthy();
+    });
+
+  });
+
 });

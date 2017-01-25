@@ -47,3 +47,7 @@ Item.prototype.isBackStagePass = function() {
 Item.prototype.isConjured = function() {
   return /Conjured/i.test(this.name);;
 };
+
+Item.prototype.isOrdinary = function() {
+  return !this.isLegendary() && !this.isAged() && !this.isBackStagePass() && !this.isConjured();
+};
