@@ -14,3 +14,8 @@ Inventory.prototype.add = function(item) {
 Inventory.prototype.setItems = function(array) {
   this._items = array;
 };
+
+Inventory.prototype.update = function() {
+  updater = new ItemUpdater(this.items());
+  this.setItems(updater.run());
+}
