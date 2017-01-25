@@ -5,7 +5,7 @@ describe("ItemUpdater", function() {
 
   function FreshItemSpy() {
     this.isPastSellIn = false;
-    this.decreaseQualityArgs = 0;
+    this.decreaseSellInArgs = 0;
   };
 
   FreshItemSpy.prototype = {
@@ -15,19 +15,20 @@ describe("ItemUpdater", function() {
   };
 
   function StaleItemSpy() {
-    this.isPastSellIn = true;
-    this.decreaseQualityArgs = 0;
-  }
+    this.isPastSellIn = false;
+    this.decreaseSellInArgs = 0;
+  };
 
   StaleItemSpy.prototype = {
-    decreaseQuality: function(number) {
-      this.decreaseQualityArgs = number
+    decreaseSellIn: function(number) {
+      this.decreaseSellInArgs = number
     }
   };
 
   beforeEach(function() {
     freshItem = new FreshItemSpy();
-    updater = new ItemUpdater([freshItem]);
+    staleItem = new StaleItemSpy();
+    updater = new ItemUpdater([freshItem, staleItem]);
   });
 
   describe("#initialize", function() {
