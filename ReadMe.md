@@ -62,3 +62,47 @@ As a Guilded Rose team member,
 To represent the precariousness of conjured items,
 I want conjured items' quality to degrade twice as quickly as other items
 ```
+
+## Approach
+This application was extensively refactored from the [Gilded Rose 'legacy code' as translated by Emily Bache](https://github.com/emilybache/GildedRose-Refactoring-Kata/tree/master/js).
+
+The refactored application consists of three classes:
+
+* Item: holds information about the item (name, quality, days within which it must be sold);
+* Inventory: holds a list of items; updates to the items are triggered from here;
+* ItemUpater: updates items.
+
+The code is tested in [Jasmine 2.5.2](https://jasmine.github.io/).
+
+## How to Install
+Clone this repository to your machine. All the files you need to run this application are included so no further installation is needed.
+
+## Getting started.
+Open the file `gilded_rose.html` in your browser. All the application files have been loaded into this html page. Open up the JavaScript console.
+
+To start with, you may wish to create a few items. Supply a name, number of days by which the item must be sold, and quality:
+
+```javascript
+apple = new Item("Apple", 7, 7)
+aged_cheese = new Item("Aged Cheese", 10, 0)
+```
+
+Add these items to an inventory:
+
+```javascript
+inventory = new Inventory();
+inventory.add(apple);
+inventory.add(aged_cheese);
+```
+
+When you're ready, update the inventory:
+
+```javascript
+inventory.update();
+```
+This will trigger the creation of an `ItemUpdater` class which will cycle through the items in your inventory, updating them according to the rules in the brief.
+
+## Future Development
+This application is extensively mocked. Indeed, half of the lines in the ItemUpdater spec are to do with mocks; this suggests that perhaps this spec could be DRY'd out a bit.
+
+One of the constraints of the `Item` class is that it cannot be modified, according to the rules of the exercise. However, an `ItemFactory` class which took an `Item` as an initialization argument, and an option (e.g. `aged`) could be used to create a class objects (e.g. `AgedItem`) which, according to the rules of the exercise, _can_ be modified. If this were to happen, it would likely simplify the `ItemUpdater` class, as useful information about an item (how fresh it is, how quickly it degrades) could be kept in such a class.
