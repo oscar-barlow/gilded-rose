@@ -35,6 +35,9 @@ ItemUpdater.prototype.updateQuality = function() {
   this.items().forEach(function(element) {
     if (element.isLegendary()) {
       updatedItems.push(element);
+    } else if (element.isAged()) {
+      element.increaseQuality(1);
+      updatedItems.push(element);
     } else {
       if (element.isPastSellIn()) {
         element.decreaseQuality(2);
