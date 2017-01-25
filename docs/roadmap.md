@@ -23,14 +23,14 @@ I want the quality of an item never to be more than 50
 As a Guilded Rose team member,
 To represent special qualities of legendary items,
 I don't want their quality or sell-by date to ever decrease
+
+As a Guilded Rose team member,
+So that I can see how some products appreciate in quality with time,
+I want "Aged Brie" to increase in quality by day.
 ```
 
 ## TODO
 ```
-As a Guilded Rose team member,
-So that I can see how some products appreciate in quality with time,
-I want "Aged Brie" to increase in quality by day.
-
 As a Guilded Rose team member,
 To represent extremely time-limited items,
 I want backstage passes to rapidly increase in quality as the sell-by date approaches
@@ -38,4 +38,8 @@ I want backstage passes to rapidly increase in quality as the sell-by date appro
 As a Guilded Rose team member,
 To represent extremely time-limited items,
 I want backstage passes' quality to decrease to 0 after the sell-by date
+
+As a Guilded Rose team member,
+To represent the precariousness of conjured items,
+I want conjured items' quality to degrade twice as quickly as other items 
 ```
