@@ -113,11 +113,11 @@ describe("ItemUpdater", function() {
       expect(agedItem.increaseQuality).toHaveBeenCalledWith(1);
     });
 
-    it("should increase the quality of backstage passes with <10 && > 5 days to go by 2", function() {
+    it("should increase the quality of backstage passes with < 10 && > 5 days to go by 2", function() {
       expect(earlybackstagePass.increaseQuality).toHaveBeenCalledWith(2);
     });
 
-    it("should increase the quality of backstage passes with <10 && > 5 days to go by 2", function() {
+    it("should increase the quality of backstage passes with < 5 && > 0 days to go by 2", function() {
       expect(latebackstagePass.increaseQuality).toHaveBeenCalledWith(3);
     });
 
