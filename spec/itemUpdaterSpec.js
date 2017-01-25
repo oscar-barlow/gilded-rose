@@ -9,8 +9,8 @@ describe("ItemUpdater", function() {
   };
 
   FreshItemSpy.prototype = {
-    decreaseQuality: function(number) {
-      this.decreaseQualityArgs = number
+    decreaseSellIn: function(number) {
+      this.decreaseSellInArgs = number
     }
   };
 
@@ -42,7 +42,7 @@ describe("ItemUpdater", function() {
 
     it("should tell all items to decrease sell_in by one", function() {
       updater.updateSellIn();
-      expect(freshItem.decreaseQualityArgs).toEqual(1);
+      expect(freshItem.decreaseSellInArgs).toEqual(1);
     });
 
   });
