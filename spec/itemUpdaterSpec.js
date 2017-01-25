@@ -11,16 +11,16 @@ describe("ItemUpdater", function() {
   var missedbackstagePass;
 
   beforeEach(function() {
-    methods = ['name','decreaseSellIn', 'decreaseQuality', 'increaseQuality', 'isPastSellIn', 'isLegendary', 'isAged', 'isConjured', 'isBackStagePass']
+    methods = ['name', 'sell_in', 'decreaseSellIn', 'decreaseQuality', 'increaseQuality', 'isPastSellIn', 'isLegendary', 'isAged', 'isConjured', 'isBackStagePass']
     freshItem = jasmine.createSpyObj('freshItem', methods);
     staleItem = jasmine.createSpyObj('staleItem', methods);
     legendaryItem = jasmine.createSpyObj('legendaryItem', methods);
     agedItem = jasmine.createSpyObj('agedItem', methods);
     freshConjuredItem = jasmine.createSpyObj('Fresh Conjured Item', methods);
     staleConjuredItem = jasmine.createSpyObj('Stale Conjured Item', methods);
-    earlybackstagePass = jasmine.createSpyObj('Backstage Pass', methods);
-    latebackstagePass = jasmine.createSpyObj('Backstage Pass', methods);
-    missedbackstagePass = jasmine.createSpyObj('Backstage Pass', methods);
+    earlybackstagePass = jasmine.createSpyObj('Early Backstage Pass', methods);
+    latebackstagePass = jasmine.createSpyObj('Late Backstage Pass', methods);
+    missedbackstagePass = jasmine.createSpyObj('Missed Backstage Pass', methods);
 
     legendaryItem.name.and.returnValue("A Legendary item");
     legendaryItem.isLegendary.and.returnValue(true);
@@ -34,7 +34,7 @@ describe("ItemUpdater", function() {
     agedItem.isAged.and.returnValue(true);
 
     freshConjuredItem.name.and.returnValue("A Conjured Item");
-    conjuredItem.isConjured.and.returnValue(true);
+    freshConjuredItem.isConjured.and.returnValue(true);
 
     staleConjuredItem.name.and.returnValue("A Conjured Item");
     staleConjuredItem.isConjured.and.returnValue(true);
@@ -51,8 +51,6 @@ describe("ItemUpdater", function() {
     missedbackstagePass.name.and.returnValue("Backstage pass after the concert");
     missedbackstagePass.isBackStagePass.and.returnValue(true);
     staleItem.isPastSellIn.and.returnValue(true);
-
-    missed
 
     updater = new ItemUpdater([freshItem, staleItem, legendaryItem, agedItem, conjuredItem, earlybackstagePass, latebackstagePass, missedbackstagePass]);
   });
@@ -109,6 +107,11 @@ describe("ItemUpdater", function() {
     it("should increase the quality of aged items", function() {
       updater.updateQuality();
       expect(agedItem.increaseQuality).toHaveBeenCalledWith(1);
+    });
+
+    it("should increase the quality of backstage passes with <10 && > 5 days to go by 2", function() {
+      updater.updateQuality();
+      expect(earlybackstagePass.increaseQuality).toHaveBeenCalledWith(2);
     });
 
   });
