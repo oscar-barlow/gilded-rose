@@ -73,8 +73,10 @@ ItemUpdater.prototype._updateBackStagePassQuality = function(item, array) {
       item.decreaseQuality(1);
     } else if(item.sell_in() < 10 && item.sell_in() > 5) {
       item.increaseQuality(2);
-    } else if(item.sell_in() < 5) {
+    } else if(item.sell_in() < 5 && item.sell_in() >= 0 ) {
       item.increaseQuality(3);
+    } else {
+      item.setQuality(0);
     };
     array.push(item);
   };

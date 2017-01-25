@@ -11,7 +11,7 @@ describe("ItemUpdater", function() {
   var missedbackstagePass;
 
   beforeEach(function() {
-    methods = ['name', 'sell_in', 'decreaseSellIn', 'decreaseQuality', 'increaseQuality', 'isPastSellIn', 'isLegendary', 'isAged', 'isConjured', 'isBackStagePass', 'isOrdinary']
+    methods = ['name', 'sell_in', 'decreaseSellIn', 'decreaseQuality', 'setQuality', 'increaseQuality', 'isPastSellIn', 'isLegendary', 'isAged', 'isConjured', 'isBackStagePass', 'isOrdinary']
     freshItem = jasmine.createSpyObj('freshItem', methods);
     staleItem = jasmine.createSpyObj('staleItem', methods);
     legendaryItem = jasmine.createSpyObj('legendaryItem', methods);
@@ -119,6 +119,10 @@ describe("ItemUpdater", function() {
 
     it("should increase the quality of backstage passes with <10 && > 5 days to go by 2", function() {
       expect(latebackstagePass.increaseQuality).toHaveBeenCalledWith(3);
+    });
+
+    it("should decrease the quality of backstage passes to zero after the concert", function() {
+      expect(missedbackstagePass.setQuality).toHaveBeenCalledWith(0);
     });
 
   });
