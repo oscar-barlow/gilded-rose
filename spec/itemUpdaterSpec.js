@@ -11,7 +11,7 @@ describe("ItemUpdater", function() {
   var missedbackstagePass;
 
   beforeEach(function() {
-    methods = ['name', 'sell_in', 'decreaseSellIn', 'decreaseQuality', 'increaseQuality', 'isPastSellIn', 'isLegendary', 'isAged', 'isConjured', 'isBackStagePass']
+    methods = ['name', 'sell_in', 'decreaseSellIn', 'decreaseQuality', 'increaseQuality', 'isPastSellIn', 'isLegendary', 'isAged', 'isConjured', 'isBackStagePass', 'isOrdinary']
     freshItem = jasmine.createSpyObj('freshItem', methods);
     staleItem = jasmine.createSpyObj('staleItem', methods);
     legendaryItem = jasmine.createSpyObj('legendaryItem', methods);
@@ -26,9 +26,11 @@ describe("ItemUpdater", function() {
     legendaryItem.isLegendary.and.returnValue(true);
 
     freshItem.name.and.returnValue("A Fresh item");
+    freshItem.isOrdinary.and.returnValue(true);
 
     staleItem.name.and.returnValue("A Stale item");
     staleItem.isPastSellIn.and.returnValue(true);
+    staleItem.isOrdinary.and.returnValue(true);
 
     agedItem.name.and.returnValue("An Aged item");
     agedItem.isAged.and.returnValue(true);
@@ -111,8 +113,12 @@ describe("ItemUpdater", function() {
       expect(agedItem.increaseQuality).toHaveBeenCalledWith(1);
     });
 
-    xit("should increase the quality of backstage passes with <10 && > 5 days to go by 2", function() {
+    it("should increase the quality of backstage passes with <10 && > 5 days to go by 2", function() {
       expect(earlybackstagePass.increaseQuality).toHaveBeenCalledWith(2);
+    });
+
+    it("should increase the quality of backstage passes with <10 && > 5 days to go by 2", function() {
+      expect(latebackstagePass.increaseQuality).toHaveBeenCalledWith(3);
     });
 
   });

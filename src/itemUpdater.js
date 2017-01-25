@@ -1,3 +1,5 @@
+"use strict";
+
 // updates items
 function ItemUpdater(items) {
   this._items = items;
@@ -33,20 +35,47 @@ ItemUpdater.prototype.updateSellIn = function() {
 ItemUpdater.prototype.updateQuality = function() {
   var updatedItems = []
   this.items().forEach(function(element) {
-    if (element.isLegendary()) {
-      updatedItems.push(element);
-    } else if (element.isAged()) {
-      element.increaseQuality(1);
-      updatedItems.push(element);
-    } else {
-      if (element.isPastSellIn()) {
-        element.decreaseQuality(2);
-        updatedItems.push(element);
-      } else {
-        element.decreaseQuality(1)
-        updatedItems.push(element);
-      };
-    };
-  });
+    this._updateLegendaryQuality(element, updatedItems);
+    this._updateOrdinaryQuality(element, updatedItems);
+    this._updateAgedQuality(element, updatedItems);
+    this._updateBackStagePassQuality(element, updatedItems);
+  }, this);
   return updatedItems;
+};
+
+ItemUpdater.prototype._updateLegendaryQuality = function(item, array) {
+  if (item.isLegendary()) {
+    array.push(item);
+  }
+};
+
+ItemUpdater.prototype._updateOrdinaryQuality = function(item, array) {
+  if(item.isOrdinary()) {
+    if(item.isPastSellIn()) {
+      item.decreaseQuality(2);
+    } else {
+      item.decreaseQuality(1);
+    };
+    array.push(item);
+  };
+};
+
+ItemUpdater.prototype._updateAgedQuality = function(item, array) {
+  if(item.isAged()){
+    item.increaseQuality(1);
+    array.push(item);
+  }
+};
+
+ItemUpdater.prototype._updateBackStagePassQuality = function(item, array) {
+  if(item.isBackStagePass()) {
+    if(item.sell_in() > 10) {
+      item.decreaseQuality(1);
+    } else if(item.sell_in() < 10 && item.sell_in() > 5) {
+      item.increaseQuality(2);
+    } else if(item.sell_in() < 5) {
+      item.increaseQuality(3);
+    };
+    array.push(item);
+  };
 };
