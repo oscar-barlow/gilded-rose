@@ -39,6 +39,7 @@ ItemUpdater.prototype.updateQuality = function() {
     this._updateOrdinaryQuality(element, updatedItems);
     this._updateAgedQuality(element, updatedItems);
     this._updateBackStagePassQuality(element, updatedItems);
+    this._updateConjuredItems(element, updatedItems);
   }, this);
   return updatedItems;
 };
@@ -79,5 +80,15 @@ ItemUpdater.prototype._updateBackStagePassQuality = function(item, array) {
       item.setQuality(0);
     };
     array.push(item);
+  };
+};
+
+ItemUpdater.prototype._updateConjuredItems = function(item, array) {
+  if(item.isConjured()) {
+    if(item.isPastSellIn()) {
+      item.decreaseQuality(4);
+    } else {
+      item.decreaseQuality(2);
+    };
   };
 };

@@ -11,7 +11,7 @@ describe("ItemUpdater", function() {
   var missedbackstagePass;
 
   beforeEach(function() {
-    methods = ['name', 'sell_in', 'decreaseSellIn', 'decreaseQuality', 'setQuality', 'increaseQuality', 'isPastSellIn', 'isLegendary', 'isAged', 'isConjured', 'isBackStagePass', 'isOrdinary']
+    methods = ['name', 'sellByDays', 'decreaseSellIn', 'decreaseQuality', 'setQuality', 'increaseQuality', 'isPastSellIn', 'isLegendary', 'isAged', 'isConjured', 'isBackStagePass', 'isOrdinary']
     freshItem = jasmine.createSpyObj('freshItem', methods);
     staleItem = jasmine.createSpyObj('staleItem', methods);
     legendaryItem = jasmine.createSpyObj('legendaryItem', methods);
@@ -44,17 +44,17 @@ describe("ItemUpdater", function() {
 
     earlybackstagePass.name.and.returnValue("Backstage pass with <10 && > 5 days to go");
     earlybackstagePass.isBackStagePass.and.returnValue(true);
-    earlybackstagePass.sell_in.and.returnValue(7);
+    earlybackstagePass.sellByDays.and.returnValue(7);
 
     latebackstagePass.name.and.returnValue("Backstage pass with < 5 days to go");
     latebackstagePass.isBackStagePass.and.returnValue(true);
-    latebackstagePass.sell_in.and.returnValue(4);
+    latebackstagePass.sellByDays.and.returnValue(4);
 
     missedbackstagePass.name.and.returnValue("Backstage pass after the concert");
     missedbackstagePass.isBackStagePass.and.returnValue(true);
     staleItem.isPastSellIn.and.returnValue(true);
 
-    updater = new ItemUpdater([freshItem, staleItem, legendaryItem, agedItem, conjuredItem, earlybackstagePass, latebackstagePass, missedbackstagePass]);
+    updater = new ItemUpdater([freshItem, staleItem, legendaryItem, agedItem, freshConjuredItem, staleConjuredItem, earlybackstagePass, latebackstagePass, missedbackstagePass]);
   });
 
   describe("#initialize", function() {
@@ -123,6 +123,14 @@ describe("ItemUpdater", function() {
 
     it("should decrease the quality of backstage passes to zero after the concert", function() {
       expect(missedbackstagePass.setQuality).toHaveBeenCalledWith(0);
+    });
+
+    it("should decrease the quality of fresh conjured items by 2", function() {
+      expect(freshConjuredItem.decreaseQuality).toHaveBeenCalledWith(2);
+    });
+
+    it("should decrease the quality of stale conjured items by 4", function() {
+      expect(staleConjuredItem.decreaseQuality).toHaveBeenCalledWith(4);
     });
 
   });

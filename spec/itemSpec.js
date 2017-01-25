@@ -6,6 +6,14 @@ describe("Item", function() {
     item = new Item("An Item", 7, 7)
   });
 
+  describe("#sellByDays", function() {
+
+    it("should return the sell_in value of the item", function() {
+      expect(item.sellByDays()).toEqual(7)
+    });
+
+  });
+
   describe("#increaseQuality", function() {
 
     it("should increase the item's quality", function() {
