@@ -1,5 +1,6 @@
 describe("Item", function() {
-  var item
+  var item;
+  var legendaryItem;
 
   beforeEach(function(){
     item = new Item("An Item", 7, 7)
@@ -47,6 +48,42 @@ describe("Item", function() {
     it("should return true if sell_in is less than zero", function() {
       item.decreaseSellIn(8);
       expect(item.isPastSellIn()).toBeTruthy();
+    });
+
+  });
+
+  describe("#isLegendary", function() {
+
+    it("should know when an item is legendary", function() {
+      legendaryItem = new Item("A Legendary Item", 100, 100);
+      expect(legendaryItem.isLegendary()).toBeTruthy();
+    });
+
+  });
+
+  describe("#isAged", function() {
+
+    it("should know when an item is Aged", function() {
+      agedItem = new Item("An Aged Item", 7, 7);
+      expect(agedItem.isAged()).toBeTruthy();
+    });
+
+  });
+
+  describe("#isBackStagePass", function() {
+
+    it("should know when an item is a backstage pass", function() {
+      backstagePass = new Item("Backstage pass", 7, 7);
+      expect(backstagePass.isBackStagePass()).toBeTruthy();
+    });
+
+  });
+
+  describe("#isConjured", function() {
+
+    it("should know when an item is conjured", function() {
+      conjuredItem = new Item("Conjured Item", 7, 7);
+      expect(conjuredItem.isConjured()).toBeTruthy();
     });
 
   });

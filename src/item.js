@@ -31,3 +31,19 @@ Item.prototype.decreaseSellIn = function(number) {
 Item.prototype.isPastSellIn = function() {
   return this.sell_in < 0;
 };
+
+Item.prototype.isLegendary = function() {
+  return /Legendary/i.test(this.name);
+};
+
+Item.prototype.isAged = function() {
+  return /Aged/i.test(this.name);
+};
+
+Item.prototype.isBackStagePass = function() {
+  return /Backstage pass/i.test(this.name);;
+};
+
+Item.prototype.isConjured = function() {
+  return /Conjured/i.test(this.name);;
+};
