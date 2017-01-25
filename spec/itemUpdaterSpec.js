@@ -4,8 +4,11 @@ describe("ItemUpdater", function() {
   var staleItem;
   var legendaryItem;
   var agedItem;
-  var conjuredItem;
-  var backstagePass;
+  var freshConjuredItem;
+  var staleConjuredItem;
+  var earlybackstagePass;
+  var latebackstagePass;
+  var missedbackstagePass;
 
   beforeEach(function() {
     methods = ['name','decreaseSellIn', 'decreaseQuality', 'increaseQuality', 'isPastSellIn', 'isLegendary', 'isAged', 'isConjured', 'isBackStagePass']
@@ -13,8 +16,11 @@ describe("ItemUpdater", function() {
     staleItem = jasmine.createSpyObj('staleItem', methods);
     legendaryItem = jasmine.createSpyObj('legendaryItem', methods);
     agedItem = jasmine.createSpyObj('agedItem', methods);
-    conjuredItem = jasmine.createSpyObj('Conjured Item', methods);
-    backstagePass = jasmine.createSpyObj('Backstage Pass', methods);
+    freshConjuredItem = jasmine.createSpyObj('Fresh Conjured Item', methods);
+    staleConjuredItem = jasmine.createSpyObj('Stale Conjured Item', methods);
+    earlybackstagePass = jasmine.createSpyObj('Backstage Pass', methods);
+    latebackstagePass = jasmine.createSpyObj('Backstage Pass', methods);
+    missedbackstagePass = jasmine.createSpyObj('Backstage Pass', methods);
 
     legendaryItem.name.and.returnValue("A Legendary item");
     legendaryItem.isLegendary.and.returnValue(true);
@@ -27,13 +33,28 @@ describe("ItemUpdater", function() {
     agedItem.name.and.returnValue("An Aged item");
     agedItem.isAged.and.returnValue(true);
 
-    conjuredItem.name.and.returnValue("A Conjured Item");
+    freshConjuredItem.name.and.returnValue("A Conjured Item");
     conjuredItem.isConjured.and.returnValue(true);
 
-    backstagePass.name.and.returnValue("Backstage pass");
-    backstagePass.isBackStagePass.and.returnValue(true);
+    staleConjuredItem.name.and.returnValue("A Conjured Item");
+    staleConjuredItem.isConjured.and.returnValue(true);
+    staleConjuredItem.isPastSellIn.and.returnValue(true);
 
-    updater = new ItemUpdater([freshItem, staleItem, legendaryItem, agedItem, conjuredItem, backstagePass]);
+    earlybackstagePass.name.and.returnValue("Backstage pass with <10 && > 5 days to go");
+    earlybackstagePass.isBackStagePass.and.returnValue(true);
+    earlybackstagePass.sell_in.and.returnValue(7);
+
+    latebackstagePass.name.and.returnValue("Backstage pass with < 5 days to go");
+    latebackstagePass.isBackStagePass.and.returnValue(true);
+    latebackstagePass.sell_in.and.returnValue(4);
+
+    missedbackstagePass.name.and.returnValue("Backstage pass after the concert");
+    missedbackstagePass.isBackStagePass.and.returnValue(true);
+    staleItem.isPastSellIn.and.returnValue(true);
+
+    missed
+
+    updater = new ItemUpdater([freshItem, staleItem, legendaryItem, agedItem, conjuredItem, earlybackstagePass, latebackstagePass, missedbackstagePass]);
   });
 
   describe("#initialize", function() {
