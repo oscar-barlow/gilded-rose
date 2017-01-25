@@ -69,11 +69,11 @@ ItemUpdater.prototype._updateAgedQuality = function(item, array) {
 
 ItemUpdater.prototype._updateBackStagePassQuality = function(item, array) {
   if(item.isBackStagePass()) {
-    if(item.sell_in() > 10) {
+    if(item.sellByDays() > 10) {
       item.decreaseQuality(1);
-    } else if(item.sell_in() < 10 && item.sell_in() > 5) {
+    } else if(item.sellByDays() < 10 && item.sellByDays() > 5) {
       item.increaseQuality(2);
-    } else if(item.sell_in() < 5 && item.sell_in() >= 0 ) {
+    } else if(item.sellByDays() < 5 && item.sellByDays() >= 0 ) {
       item.increaseQuality(3);
     } else {
       item.setQuality(0);

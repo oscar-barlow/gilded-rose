@@ -10,6 +10,10 @@ function Item(name, sell_in, quality) {
   this.quality = quality;
 };
 
+Item.prototype.sellByDays = function() {
+  return this.sell_in;
+};
+
 Item.prototype.increaseQuality = function(number) {
   if (this.quality + number > 50) {
     this.quality = 50;
