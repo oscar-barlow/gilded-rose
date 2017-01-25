@@ -25,4 +25,14 @@ describe("Inventory", function() {
 
   });
 
+  describe("#setItems", function() {
+
+    it("should set the inventory's items to the input value", function() {
+      var array = ["a", "b", "c"]
+      inventory.setItems(array);
+      expect(inventory.items()).toEqual(array);
+    });
+
+  });
+
 });

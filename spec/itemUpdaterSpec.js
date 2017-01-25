@@ -40,14 +40,14 @@ describe("ItemUpdater", function() {
 
 
     it("should tell fresh items to decrease quality by one", function() {
-      updater.decreaseQuality();
+      updater.updateQuality();
       expect(freshItem.decreaseQuality).toHaveBeenCalledWith(1);
     });
 
     it("should tell items past their sell_in to decrease quality by 2", function() {
       freshItem.isPastSellIn.and.returnValue(false);
       staleItem.isPastSellIn.and.returnValue(true);
-      updater.decreaseQuality();
+      updater.updateQuality();
       expect(staleItem.decreaseQuality).toHaveBeenCalledWith(2);
     });
 
