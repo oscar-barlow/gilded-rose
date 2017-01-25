@@ -3,31 +3,9 @@ describe("ItemUpdater", function() {
   var freshItem;
   var staleItem;
 
-  function FreshItemSpy() {
-    this.isPastSellIn = false;
-    this.decreaseSellInArgs = 0;
-  };
-
-  FreshItemSpy.prototype = {
-    decreaseSellIn: function(number) {
-      this.decreaseSellInArgs = number
-    }
-  };
-
-  function StaleItemSpy() {
-    this.isPastSellIn = false;
-    this.decreaseSellInArgs = 0;
-  };
-
-  StaleItemSpy.prototype = {
-    decreaseSellIn: function(number) {
-      this.decreaseSellInArgs = number
-    }
-  };
-
   beforeEach(function() {
-    freshItem = new FreshItemSpy();
-    staleItem = new StaleItemSpy();
+    freshItem = jasmine.createSpyObj('freshItem', ['decreaseSellIn', 'decreaseQuality', 'isPastSellIn']);
+    staleItem = jasmine.createSpyObj('staleItem', ['decreaseSellIn', 'decreaseQuality', 'isPastSellIn']);
     updater = new ItemUpdater([freshItem, staleItem]);
   });
 
@@ -43,7 +21,24 @@ describe("ItemUpdater", function() {
 
     it("should tell all items to decrease sell_in by one", function() {
       updater.updateSellIn();
-      expect(freshItem.decreaseSellInArgs).toEqual(1);
+      expect(freshItem.decreaseSellIn).toHaveBeenCalledWith(1);
+    });
+
+  });
+
+  describe("#updateQuality", function() {
+
+
+    it("should tell fresh items to decrease quality by one", function() {
+      updater.decreaseQuality();
+      expect(freshItem.decreaseQuality).toHaveBeenCalledWith(1);
+    });
+
+    it("should tell items past their sell_in to decrease quality by 2", function() {
+      freshItem.isPastSellIn.and.returnValue(false);
+      staleItem.isPastSellIn.and.returnValue(true);
+      updater.decreaseQuality();
+      expect(staleItem.decreaseQuality).toHaveBeenCalledWith(2);
     });
 
   });

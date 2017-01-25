@@ -12,3 +12,13 @@ ItemUpdater.prototype.updateSellIn = function() {
     element.decreaseSellIn(1);
   });
 };
+
+ItemUpdater.prototype.decreaseQuality = function() {
+  this._items.forEach(function(element) {
+    if (element.isPastSellIn()) {
+      element.decreaseQuality(2);
+    } else {
+      element.decreaseQuality(1)
+    };
+  });
+};
