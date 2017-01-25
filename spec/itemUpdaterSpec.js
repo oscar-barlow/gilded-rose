@@ -75,13 +75,15 @@ describe("ItemUpdater", function() {
 
   describe("#updateSellIn", function() {
 
-    it("should tell all non-legendary items to decrease sell_in by one", function() {
+    beforeEach(function(){
       updater.updateSellIn();
+    })
+
+    it("should tell all non-legendary items to decrease sell_in by one", function() {
       expect(freshItem.decreaseSellIn).toHaveBeenCalledWith(1);
     });
 
     it("should not decrease sell_in for legendary items", function() {
-      updater.updateSellIn();
       expect(legendaryItem.decreaseSellIn).not.toHaveBeenCalled();
     });
 
@@ -89,28 +91,27 @@ describe("ItemUpdater", function() {
 
   describe("#updateQuality", function() {
 
-    it("should tell fresh items to decrease quality by one", function() {
+    beforeEach(function() {
       updater.updateQuality();
+    });
+
+    it("should tell fresh items to decrease quality by one", function() {
       expect(freshItem.decreaseQuality).toHaveBeenCalledWith(1);
     });
 
     it("should tell items past their sell_in to decrease quality by 2", function() {
-      updater.updateQuality();
       expect(staleItem.decreaseQuality).toHaveBeenCalledWith(2);
     });
 
     it("should not decrease quality of legendary items", function() {
-      updater.updateQuality();
       expect(legendaryItem.decreaseQuality).not.toHaveBeenCalled();
     });
 
     it("should increase the quality of aged items", function() {
-      updater.updateQuality();
       expect(agedItem.increaseQuality).toHaveBeenCalledWith(1);
     });
 
-    it("should increase the quality of backstage passes with <10 && > 5 days to go by 2", function() {
-      updater.updateQuality();
+    xit("should increase the quality of backstage passes with <10 && > 5 days to go by 2", function() {
       expect(earlybackstagePass.increaseQuality).toHaveBeenCalledWith(2);
     });
 
