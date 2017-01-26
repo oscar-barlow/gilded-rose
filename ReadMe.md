@@ -95,6 +95,12 @@ inventory.add(apple);
 inventory.add(aged_cheese);
 ```
 
+Review your inventory:
+
+```javascript
+inventory.items();
+```
+
 When you're ready, update the inventory:
 
 ```javascript
@@ -103,6 +109,8 @@ inventory.update();
 This will trigger the creation of an `ItemUpdater` class which will cycle through the items in your inventory, updating them according to the rules in the brief.
 
 ## Future Development
-This application is extensively mocked. Indeed, half of the lines in the ItemUpdater spec are to do with mocks; this suggests that perhaps this spec could be DRY'd out a bit.
+This application is extensively mocked. Indeed, half of the lines in the `ItemUpdater` spec are to do with mocks; this suggests that perhaps this spec could be DRY'd out a bit.
 
 One of the constraints of the `Item` class is that it cannot be modified, according to the rules of the exercise. However, an `ItemFactory` class which took an `Item` as an initialization argument, and an option (e.g. `aged`) could be used to create a class objects (e.g. `AgedItem`) which, according to the rules of the exercise, _can_ be modified. If this were to happen, it would likely simplify the `ItemUpdater` class, as useful information about an item (how fresh it is, how quickly it degrades) could be kept in such a class.
+
+Additionally, there are a few 'magic numbers' in the `ItemUpdater`. These should be refactored to constants with descriptive names, e.g. `DEFAULT_QUALITY_DEPRECIATION`.
